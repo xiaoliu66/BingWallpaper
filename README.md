@@ -29,14 +29,23 @@ Auto.js 是可以在安卓系统上运行JS脚本的软件。这个软件可以�
 
 其中bing-china.py和bing-global.py 就是必应的国内版和国际版的爬虫。在termux中输入
 > crontab -e #添加定时脚本任务
+
 > crontab -l #查看当前的定时脚本任务     
 
 比如：自己的定时任务如下：
 > 00 16 * * * python /你的python脚本所在的目录/bing-china.py >> /data/data/bing-china.log # 意思是每天的下午16点会定时执行这个爬取必应国内版的脚本并把信息添加到一个日志文件中。    
 
-3.上面的定时任务需要在termux中启动crond服务，命令如下：
+3. 上面的定时任务需要在termux中启动crond服务，命令如下：
 > crond start # crontab 服务启动
+
 > crond stop # crontab 服务停止
+
 > crond restart # crontab 服务重启
 
-这个命令需要开启termux中自动输入，但是我在网上找资料是需要在Google play中下载一个Termux:boot 软件（需要付费且几年无更新过、Android 8中不能安装）。所以，我选择了在Auto.js中写了一个js脚本在启动termux后，自动输入crond start 启动crontab服务。 
+这个命令需要开启termux中自动输入，但是我在网上找资料是需要在Google play中下载一个Termux:boot 软件（需要付费且几年无更新过、Android 8不能安装该软件）。所以，我选择了在Auto.js中写了一个js脚本在启动termux后，自动输入crond start 启动crontab服务。 
+
+安卓设备不可能24小时都亮屏，Auto.js 有定时执行脚本功能。所以这套流程大致如下：
+平板息屏--->Auto.js 定时执行脚本唤醒平板----->Auto.js执行脚本模拟人点击键盘输入“crond start” 命令---->termux中crontab 定时执行python脚本爬取必应首页图片--->Auto.js 执行脚本模拟输入“exit”退出termux（记得设置termux运行时屏幕常亮）---->流程结束
+
+其中每个人的安卓设备都是不一样的，我的是小米平板4。屏幕分辨率也不一样，所以在模拟输入命令时，需要准确的获取你自己安卓设备上的几个字母的准确坐标值。详见[auto.js简单入门教学autojs教程第一课认识auto以及编写简单脚本连接电脑手机方法投屏软件](https://www.bilibili.com/video/av54488377) 
+4. 以上就是自己瞎折腾完成的满足自己需求的过程，不喜勿喷：）
