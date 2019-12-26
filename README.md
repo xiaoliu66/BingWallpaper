@@ -18,7 +18,25 @@ Termux可以运行数据库、部署博客等等还有其他的用处,具体的�
 Auto.js 是可以在安卓系统上运行JS脚本的软件。这个软件可以做每天早上定时收取支付宝蚂蚁能量、各种app的签到、手机游戏脚本等等能做的事情很多。这个app之前是免费试用的，现在酷安只能找到Auto.js.pro 版本，需要注册并支付一定数额的金钱。下面会给出之前免费版本的下载地址。
 
 * [Auto.js官方网站](https://hyb1996.github.io/AutoJs-Docs/#/)
-* [Auto.js下载](https://github.com/Ericwyn/Auto.js/releases)   
+* [Auto.js下载](https://github.com/Ericwyn/Auto.js/releases)      
 
+## 操作步骤
 
+1. 首先在安卓设备上安装好termux。在上面的 [Termux 高级终端安装使用配置教程](https://www.sqlsec.com/2018/05/termux.html) 中完成阅读"快速上手"到"访问外置存储优化",并且在termux中安装好python3和git。
 
+2. 直接在termux中输入
+> git clone git@github.com:xiaoliu66/BingWallpaper.git
+
+其中bing-china.py和bing-global.py 就是必应的国内版和国际版的爬虫。在termux中输入
+> crontab -e #添加定时脚本任务
+> crontab -l #查看当前的定时脚本任务     
+
+比如：自己的定时任务如下：
+> 00 16 * * * python /你的python脚本所在的目录/bing-china.py >> /data/data/bing-china.log # 意思是每天的下午16点会定时执行这个爬取必应国内版的脚本并把信息添加到一个日志文件中。    
+
+3.上面的定时任务需要在termux中启动crond服务，命令如下：
+> crond start # crontab 服务启动
+> crond stop # crontab 服务停止
+> crond restart # crontab 服务重启
+
+这个命令需要开启termux中自动输入，但是我在网上找资料是需要在Google play中下载一个Termux:boot 软件（需要付费且几年无更新过、Android 8中不能安装）。所以，我选择了在Auto.js中写了一个js脚本在启动termux后，自动输入crond start 启动crontab服务。 
