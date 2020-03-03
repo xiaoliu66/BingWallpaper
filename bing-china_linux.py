@@ -40,7 +40,7 @@ def mkdir(path):
     else:
         return 0
         #print(path + " 文件夹已经存在.")
-# 创建文件夹，将爬取的gif下载到所创建的文件夹中
+# 创建文件夹，将爬取的图片下载到所创建的文件夹中
 file = "/home/liudao/BingWallpaper/bing-china" + "_" + date[0:7]
 mkdir(file)
 
